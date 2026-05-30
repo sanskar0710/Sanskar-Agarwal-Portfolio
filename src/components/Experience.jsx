@@ -1,39 +1,75 @@
 import { motion } from 'framer-motion'
+import { FiCheckCircle } from 'react-icons/fi'
 import SectionHeading from './SectionHeading'
-
-const bullets = [
-  'Built offline AI chatbot using BERT for privacy-focused internal usage',
-  'Designed secure PDF querying system with robust document handling',
-  'Developed full-stack interface for smooth interaction and search accuracy',
-]
+import { experiences } from '../data/portfolioData'
 
 function Experience() {
   return (
     <section id="experience" className="section-wrap">
       <SectionHeading
         eyebrow="Experience"
-        title="Industry experience with applied AI"
-        subtitle="Hands-on internship delivering secure and practical AI applications."
+        title="Internship experience focused on applied NLP systems"
+        subtitle="Delivered secure, offline-capable AI functionality with full-stack integration in an enterprise context."
       />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
-      >
-        <div className="relative border-l border-cyan-400/35 pl-6">
-          <span className="absolute -left-[7px] top-2 h-3.5 w-3.5 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(34,211,238,.7)]" />
-          <h3 className="text-xl font-semibold text-white">AI Chatbot Intern - NPCIL</h3>
-          <p className="mt-4 text-sm text-slate-300">
-            Worked on a secure internal AI system designed for intelligent document interaction.
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-slate-200">
-            {bullets.map((bullet) => (
-              <li key={bullet}>- {bullet}</li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
+
+      <div className="mx-auto max-w-4xl space-y-6">
+        {experiences.map((exp, index) => (
+          <motion.div
+            key={exp.role}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.55,
+              delay: index * 0.15,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="glass-card"
+          >
+            <div className="relative pl-7">
+              {/* Timeline line & dot */}
+              <div className="timeline-line" />
+              <div className="timeline-dot" />
+
+              {/* Header */}
+              <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white">{exp.role}</h3>
+                  <p className="mt-1 text-sm font-medium text-cyan-300/80">{exp.company}</p>
+                </div>
+                <span className="inline-flex shrink-0 items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-400">
+                  {exp.duration}
+                </span>
+              </div>
+
+              {/* Description */}
+              <p className="mb-4 text-sm leading-relaxed text-slate-400">{exp.description}</p>
+
+              {/* Bullet Points */}
+              <ul className="mb-5 space-y-2.5">
+                {exp.bullets.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-start gap-2.5 text-sm text-slate-300"
+                  >
+                    <FiCheckCircle className="mt-0.5 shrink-0 text-cyan-400/70" size={14} />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Tech Tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {exp.tech.map((t) => (
+                  <span key={t} className="tag">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </section>
   )
 }
