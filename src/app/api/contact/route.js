@@ -21,6 +21,26 @@ export async function POST(request) {
       )
     }
 
+    let submittedToSheet = false
+    const googleSheetUrl = process.env.GOOGLE_SHEET_WEBAPP_URL
+    if (googleSheetUrl) {
+      try {
+        const response = await fetch(googleSheetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        })
+        const result = await response.json()
+        if (result.success) {
+          submittedToSheet = true
+        } else {
+          console.error('Google Sheets webapp returned error:', result.error)
+        }
+      } catch (err) {
+        console.error('Google Sheets submission error:', err)
+      }
+    }
+
     // Try Web3Forms if API key is configured
     const web3formsKey = process.env.WEB3FORMS_API_KEY
     if (web3formsKey) {
@@ -38,17 +58,22 @@ export async function POST(request) {
 
       const result = await response.json()
       if (result.success) {
-        return NextResponse.json({ success: true, method: 'web3forms' })
+        return NextResponse.json({
+          success: true,
+          method: 'web3forms',
+          googleSheet: submittedToSheet,
+        })
       }
+    }
 
-      return NextResponse.json(
-        { error: 'Form submission failed. Please try again.' },
-        { status: 500 },
-      )
+    if (submittedToSheet) {
+      return NextResponse.json({
+        success: true,
+        method: 'google-sheet',
+      })
     }
 
     // Fallback: store the message server-side (log it)
-    // In production, you'd save to a database or send an email via SMTP
     console.log('📬 New contact form submission:')
     console.log(`  Name:    ${name}`)
     console.log(`  Email:   ${email}`)
@@ -57,7 +82,7 @@ export async function POST(request) {
     return NextResponse.json({
       success: true,
       method: 'server-log',
-      note: 'Message received. Set WEB3FORMS_API_KEY env var for email delivery.',
+      note: 'Message received. Set WEB3FORMS_API_KEY or GOOGLE_SHEET_WEBAPP_URL env vars.',
     })
   } catch (err) {
     console.error('Contact form error:', err)
