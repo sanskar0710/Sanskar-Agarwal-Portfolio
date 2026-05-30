@@ -56,8 +56,8 @@ const experiences = [
 
 /* ─── Stats ────────────────────────────────── */
 const stats = [
-  { label: 'Projects', value: '6+' },
-  { label: 'Certifications', value: '4' },
+  { label: 'Projects', value: '60+' },
+  { label: 'Certifications', value: '8+' },
   { label: 'Achievements', value: '4' },
 ]
 
@@ -319,58 +319,75 @@ export default function StudioPortfolio() {
       {/* ─── HERO ──────────────────────────────── */}
       <section className="hero section" id="home">
         <div className="hero-noise" />
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
-          className="eyebrow"
-        >
-          AI + DATA SCIENCE PORTFOLIO
-        </motion.p>
-        <h1 className="hero-title reveal">
-          I build intelligent systems &amp; immersive digital experiences
-        </h1>
-        <p className="hero-name reveal">Sanskar Agrawal</p>
-        <p className="hero-sub reveal">
-          AI/ML Engineer &nbsp;|&nbsp; Full Stack Developer &nbsp;|&nbsp; Data
-          Scientist
-        </p>
+        <div className="hero-grid">
+          <div className="hero-content">
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5, duration: 0.5 }}
+              className="eyebrow"
+            >
+              AI + DATA SCIENCE PORTFOLIO
+            </motion.p>
+            <h1 className="hero-title reveal">
+              I build intelligent systems &amp; immersive digital experiences
+            </h1>
+            <p className="hero-name reveal">Sanskar Agrawal</p>
+            <p className="hero-sub reveal">
+              AI/ML Engineer &nbsp;|&nbsp; Full Stack Developer &nbsp;|&nbsp; Data
+              Scientist
+            </p>
 
-        <div className="hero-actions reveal">
-          <a href="#projects" className="btn-accent">
-            View Work <FiArrowDown />
-          </a>
-          <a href="/resume.pdf" download className="btn-outline">
-            Resume <FiDownload />
-          </a>
-          <a
-            href="https://github.com/sanskar0710"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-icon"
-            aria-label="GitHub"
-          >
-            <FiGithub />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/sanskaragrawal07/"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-icon"
-            aria-label="LinkedIn"
-          >
-            <FiLinkedin />
-          </a>
-        </div>
-
-        {/* Stats */}
-        <div className="hero-stats reveal">
-          {stats.map((s) => (
-            <div key={s.label} className="stat">
-              <p className="stat-value">{s.value}</p>
-              <p className="stat-label">{s.label}</p>
+            <div className="hero-actions reveal">
+              <a href="#projects" className="btn-accent">
+                View Work <FiArrowDown />
+              </a>
+              <a href="/resume.pdf" download className="btn-outline">
+                Resume <FiDownload />
+              </a>
+              <a
+                href="https://github.com/sanskar0710"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-icon"
+                aria-label="GitHub"
+              >
+                <FiGithub />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sanskaragrawal07/"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-icon"
+                aria-label="LinkedIn"
+              >
+                <FiLinkedin />
+              </a>
             </div>
-          ))}
+
+            {/* Stats */}
+            <div className="hero-stats reveal">
+              {stats.map((s) => (
+                <div key={s.label} className="stat">
+                  <p className="stat-value">{s.value}</p>
+                  <p className="stat-label">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hero-image-container reveal">
+            <div className="hero-image-frame">
+              <Image
+                src="/profile.jpg"
+                alt="Sanskar Agrawal"
+                width={360}
+                height={480}
+                priority
+                className="hero-img"
+              />
+            </div>
+          </div>
         </div>
 
         <a href="#projects" className="scroll-cta">
@@ -391,8 +408,7 @@ export default function StudioPortfolio() {
             <span className="about-num">01</span>
             <h3>Who I Am</h3>
             <p>
-              Computer Science student focused on data science and applied AI. I design
-              high-quality digital products with intelligence built into core workflows.
+              Computer science student with a focus on data science and applied AI. I build high quality digital products with intelligence embedded in core workflows.
             </p>
           </article>
           <article className="about-card reveal">
@@ -411,15 +427,6 @@ export default function StudioPortfolio() {
               feels premium, useful, and technically impressive.
             </p>
           </article>
-          <div className="about-image reveal">
-            <Image
-              src="/profile.jpg"
-              alt="Sanskar Agrawal"
-              fill
-              sizes="(max-width: 900px) 100vw, 50vw"
-              className="cover"
-            />
-          </div>
         </div>
       </section>
 
